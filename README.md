@@ -37,7 +37,7 @@ Follow the steps from [this guide](https://github.com/alexortner/kubernetes-on-r
 
 Things done differently:
 
-- Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/).
+- Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/). If you want to connect to it via your router, make sure it is in the same subnet.
 
 ### K3s Applications
 
