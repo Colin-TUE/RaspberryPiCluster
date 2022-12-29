@@ -39,6 +39,7 @@ Things done differently:
 
 - Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/). If you want to connect to it via your router, make sure it is in the same subnet.
 - Before installing K3s, I ran `sudo apt-get update` and `sudo apt-get upgrade` to make sure all latest packages are installed.
+- Use a local kubeconfig file instead of the default one in my home folder. Can be specified on the context setting using the `--kubeconfig .kubeconfig` arguments.
 
 ### K3s Applications
 
@@ -52,4 +53,6 @@ TBW
 - [Setup MicroK8s after bramble is setup](https://ubuntu.com/tutorials/how-to-kubernetes-cluster-on-raspberry-pi#4-installing-microk8s)
 - [K8s setup for Raspbian](https://github.com/sonujose/kubernetes-raspberrypi)
 - [K3s setup with a GPU node](https://mitchmurphy.io/k3s-raspberry-pi/)
-- [__K3s setup including basic monitoring application__](https://github.com/alexortner/kubernetes-on-raspberry-pi)
+- [__K3s setup including basic monitoring application__](https://github.com/alexortner/kubernetes-on-raspberry-pi) & [article](https://medium.com/thinkport/how-to-build-a-raspberry-pi-kubernetes-cluster-with-k3s-76224788576c)
+- [Raspberry Pi static IP config](https://www.makeuseof.com/raspberry-pi-set-static-ip/)
+- [Kubeconfig file parameters](https://www.nathannellans.com/post/kubernetes-using-kubectl-with-kubeconfig-files)
