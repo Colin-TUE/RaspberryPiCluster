@@ -33,7 +33,11 @@ The reason for following this specific setup is that I prefer to use a K3s clust
 
 ### K3s Setup
 
-Follow the steps from [this guide](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/setup)
+Follow the steps from [this guide](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/setup).
+
+Things done differently:
+
+- Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/).
 
 ### K3s Applications
 
