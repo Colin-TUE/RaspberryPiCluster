@@ -44,7 +44,8 @@ Things done differently:
 - Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/). If you want to connect to it via your router, make sure it is in the same subnet.
 - Before installing K3s, I ran `sudo apt-get update` and `sudo apt-get upgrade` to make sure all latest packages are installed.
 - I use a local kubeconfig file instead of the default one in my home folder. A local file can be specified on the context setting using the `--kubeconfig .kubeconfig` arguments or by setting the `export KUBECONFIG=<path>` environment variable.
-  - When there is already a context (or `config` file) present in `~/.kube/` then the above method might be cumbersome or not working. In that case copy the kubeconfig file to `~/.kube/` and set the context `kubectl config user-context k3s` and verify by typing `kubectl config current-context`.
+  - `export KUBECONFIG=.kubeconfig`
+  - `kubectl config use-context k3s`
 - Applied some memory limits to the K3s server on the master node, since it was runnig out of RAM and swap and becoming unresponsive.
   - Noticed that the `kubectl` command on the client was becoming unresponsive and so checked the the utilization of the master node(using `htop`). Which used 100% of its swap. The checked the difference between having all workers connected and all of them disconnected.
   - `sudo systemctl set-property k3s.service MemoryHigh=75% MemorySwapMax=50M`
