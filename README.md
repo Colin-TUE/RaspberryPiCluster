@@ -39,7 +39,8 @@ Things done differently:
 
 - Set up each Raspberry Pi with a static IP address [docs](https://www.makeuseof.com/raspberry-pi-set-static-ip/). If you want to connect to it via your router, make sure it is in the same subnet.
 - Before installing K3s, I ran `sudo apt-get update` and `sudo apt-get upgrade` to make sure all latest packages are installed.
-- Use a local kubeconfig file instead of the default one in my home folder. Can be specified on the context setting using the `--kubeconfig .kubeconfig` arguments.
+- I use a local kubeconfig file instead of the default one in my home folder. A local file can be specified on the context setting using the `--kubeconfig .kubeconfig` arguments or by setting the `export KUBECONFIG=<path>` environment variable.
+  - When there is already a context (or `config` file) present in `~/.kube/` then the above method might be cumbersome or not working. In that case copy the kubeconfig file to `~/.kube/` and set the context `kubectl config user-context k3s` and verify by typing `kubectl config current-context`.
 
 ### K3s Applications
 
