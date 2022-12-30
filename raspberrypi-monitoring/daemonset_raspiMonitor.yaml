@@ -1,0 +1,26 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: raspi-monitor
+  namespace: raspi-monitor
+spec:
+  selector:
+    matchLabels:
+      app: raspi-monitor # has to match .spec.template.metadata.labels
+  template:
+    metadata:
+      labels:
+        app: raspi-monitor # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+        - name: raspi-monitor
+          image: tingelbuxe/k3s-meetup:raspi-monitor
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName

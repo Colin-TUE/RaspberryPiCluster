@@ -133,7 +133,35 @@ kubectl delete pod hello-raspi
 
 Based on [this MQTT broker tutorial](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/3_mosquittoMQTT) and [this raspi monitor tutorial](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/4_raspiMonitor).
 
-TBW
+```bash
+# Setup MQTT broker
+helm repo add k8s-at-home https://k8s-at-home.com/charts/
+kubectl create namespace mqtt
+helm install mosquitto k8s-at-home/mosquitto -n mqtt
+```
+
+Then setup the Raspberry Pi monitoring (mostly taken from the [tutorial repo](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/4_raspiMonitor)).
+
+```bash
+kubectl create namespace raspi-monitor
+kubectl create -f ./raspberrypi-monitoring/daemonset_raspiMonitor.yaml
+```
+
+In this case I used the docker images from the tutorial, but in case you want to build your own:
+
+```bash
+cd raspberrypi-monitoring
+docker build -t <repo>:raspi-monitor -f Dockerfile .
+docker push <repo>:raspi-monitor
+```
+
+Then change the following in [raspberrypi-monitoring/deamonset_raspiMonitoring.yaml](./raspberrypi-monitoring/daemonset_raspiMonitor.yaml):
+
+```yaml
+    containers:
+        - name: raspi-monitor
+          image: <repo>:raspi-monitor
+```
 
 ### 3. PiHole setup
 
@@ -156,3 +184,4 @@ TBW
 - [K8s Dashboard Helm chart](https://artifacthub.io/packages/helm/k8s-dashboard/kubernetes-dashboard)
 - [Ingress controller for bare metal clsuters](https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters)
 - [K8s port forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+- [Docker images form the tutorial](https://hub.docker.com/r/tingelbuxe/k3s-meetup/tags)
