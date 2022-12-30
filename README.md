@@ -11,6 +11,7 @@ Repo containing the resources, links, and other stuff I used to setup my own K8s
       - [Accessing Dashboard through Master Node](#accessing-dashboard-through-master-node)
     - [1. Echo test applciation](#1-echo-test-applciation)
     - [2. Raspberry Pi Monitor](#2-raspberry-pi-monitor)
+    - [2.1 Hooking the Monitor to Grafana](#21-hooking-the-monitor-to-grafana)
     - [3. PiHole setup](#3-pihole-setup)
   - [References](#references)
 
@@ -145,6 +146,9 @@ Then setup the Raspberry Pi monitoring (mostly taken from the [tutorial repo](ht
 ```bash
 kubectl create namespace raspi-monitor
 kubectl create -f ./raspberrypi-monitoring/daemonset_raspiMonitor.yaml
+
+# Forward the port to make the data available for a MQTT client
+kubectl port-forward service/mosquitto 9002:1883 --namespace mqtt
 ```
 
 In this case I used the docker images from the tutorial, but in case you want to build your own:
@@ -162,6 +166,12 @@ Then change the following in [raspberrypi-monitoring/deamonset_raspiMonitoring.y
         - name: raspi-monitor
           image: <repo>:raspi-monitor
 ```
+
+To verify that the monitoring is publishing the values, one can use the [MQTT Explorer](https://mqtt-explorer.com/). To connect the explorer to the cluster, another port forward needs to be set up: `kubectl port-forward service/mosquitto 9002:1883 --namespace mqtt`.
+
+### 2.1 Hooking the Monitor to Grafana
+
+TBW
 
 ### 3. PiHole setup
 
@@ -185,3 +195,5 @@ TBW
 - [Ingress controller for bare metal clsuters](https://kubernetes.github.io/ingress-nginx/deploy/#bare-metal-clusters)
 - [K8s port forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 - [Docker images form the tutorial](https://hub.docker.com/r/tingelbuxe/k3s-meetup/tags)
+- [MQTT Explorer](https://mqtt-explorer.com/)
+- [MQTT tools - most of them are outdated](https://www.hivemq.com/mqtt-toolbox/)
