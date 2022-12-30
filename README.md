@@ -61,3 +61,5 @@ TBW
 - [__K3s setup including basic monitoring application__](https://github.com/alexortner/kubernetes-on-raspberry-pi) & [article](https://medium.com/thinkport/how-to-build-a-raspberry-pi-kubernetes-cluster-with-k3s-76224788576c)
 - [Raspberry Pi static IP config](https://www.makeuseof.com/raspberry-pi-set-static-ip/)
 - [Kubeconfig file parameters](https://www.nathannellans.com/post/kubernetes-using-kubectl-with-kubeconfig-files)
+- [`systemctl` man page](https://www.man7.org/linux/man-pages/man1/systemctl.1.html)
+- [`systemctd.resource-control` man page](https://www.man7.org/linux/man-pages/man5/systemd.resource-control.5.html)
