@@ -4,9 +4,13 @@ Repo containing the resources, links, and other stuff I used to setup my own K8s
 
 - [RaspberryPiCluster](#raspberrypicluster)
   - [Materials](#materials)
-  - [Setup](#setup)
-    - [K3s Setup](#k3s-setup)
-    - [K3s Applications](#k3s-applications)
+  - [K3s Cluster setup](#k3s-cluster-setup)
+    - [Installation steps](#installation-steps)
+  - [K3s Applications](#k3s-applications)
+    - [0. Cluster Dashboard](#0-cluster-dashboard)
+    - [1. Echo test applciation](#1-echo-test-applciation)
+    - [2. Raspberry Pi Monitor](#2-raspberry-pi-monitor)
+    - [3. PiHole setup](#3-pihole-setup)
   - [References](#references)
 
 ## Materials
@@ -25,13 +29,13 @@ The materials I used for this cluster are:
   - or use 1 USB hub with many USB ports (preferable)
 - a bunch of network cables (CAT5E) for network connectivity.
 
-## Setup
+## K3s Cluster setup
 
-My setup mostly follows the K3s setup including the Raspberry Pi monitoring tool (reference is marked in bold).
+My setup mostly follows the K3s setup including the Raspberry Pi monitoring tool (reference is marked in bold below).
 
 The reason for following this specific setup is that I prefer to use a K3s cluster over a K8s cluster. K3s is meant for resource constraint edge nodes, which Raspberry Pi's are. I also noticed that most of the K8s setups use MicroK8s instead of K8s directly. Although I expect it to work just fine, being closer to what the software is meant for is better for learning and playing around.
 
-### K3s Setup
+### Installation steps
 
 Follow the steps from [this guide](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/setup).
 
@@ -46,7 +50,42 @@ Things done differently:
   - `sudo systemctl set-property k3s.service MemoryHigh=75% MemorySwapMax=50M`
   - `sudo systemctl restart k3s.service`
 
-### K3s Applications
+## K3s Applications
+
+### 0. Cluster Dashboard
+
+TBW
+
+### 1. Echo test applciation
+
+Based on [this tutorial](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/1_helloRaspi).
+
+Run the following commands:
+
+```bash
+# Simple statement that logs every two seconds:
+kubectl run hello-raspi --image=busybox -- /bin/sh -c 'while true; do echo $(date)": Hello Raspi"; sleep 2; done'
+> pod/hello-raspi created
+
+# Check the logs:
+kubectl logs hello-raspi -f
+> Fri Dec 30 10:18:47 UTC 2022: Hello Raspi
+> Fri Dec 30 10:18:49 UTC 2022: Hello Raspi
+> Fri Dec 30 10:18:51 UTC 2022: Hello Raspi
+> ...
+
+# clean up the pod
+kubectl delete pod hello-raspi
+> pod "hello-raspi" deleted
+```
+
+### 2. Raspberry Pi Monitor
+
+Based on [this MQTT broker tutorial](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/3_mosquittoMQTT) and [this raspi monitor tutorial](https://github.com/alexortner/kubernetes-on-raspberry-pi/tree/main/apps/4_raspiMonitor).
+
+TBW
+
+### 3. PiHole setup
 
 TBW
 
